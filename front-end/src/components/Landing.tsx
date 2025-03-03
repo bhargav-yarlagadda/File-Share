@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-
+import Link from "next/link";
 export default function LandingPage() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-[#15002e] to-[#29004c] p-6">
@@ -17,10 +17,12 @@ export default function LandingPage() {
               generate a shareable link effortlessly.
             </p>
             <div className="mt-6 flex gap-4 justify-center md:justify-start">
-              <button className="relative overflow-hidden bg-pink-500 text-white mb-4 px-2 md:px-6 py-3 rounded-lg shadow-lg transition-all duration-300 hover:shadow-pink-500/50 hover:-translate-y-1 text-sm md:text-base">
-                LiveShare
+              <Link
+              href="/live-share"
+              className="relative overflow-hidden bg-pink-500 text-white mb-4 px-2 md:px-6 py-3 rounded-lg shadow-lg transition-all duration-300 hover:shadow-pink-500/50 hover:-translate-y-1 text-sm md:text-base">
+                Live Share
                 <span className="absolute inset-0 bg-pink-400/20 blur-md -z-10"></span>
-              </button>
+              </Link>
               <button className="relative overflow-hidden border border-pink-500 text-pink-400 mb-4 px-2 md:px-6 py-3 rounded-lg transition-all duration-300 hover:bg-pink-500 hover:text-white hover:shadow-pink-500/50 text-sm md:text-base">
                 Share Via URL
                 <span className="absolute inset-0 bg-pink-400/10 blur-md -z-10"></span>
