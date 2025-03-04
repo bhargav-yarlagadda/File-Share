@@ -39,7 +39,6 @@ const Receive = () => {
       ws.send(JSON.stringify({ type: "join-session", code: code.trim() }));
   
       // Then request the file
-      ws.send(JSON.stringify({ type: "request-file", code: code.trim() }));
     };
   
     ws.onmessage = (event) => {
