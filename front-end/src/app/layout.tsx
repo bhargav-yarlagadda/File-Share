@@ -2,7 +2,10 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider, ClerkLoaded, ClerkLoading } from "@clerk/nextjs";
+
 import Navbar from "@/components/Navbar";
+import Loader from "@/components/Loader";
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -23,6 +26,8 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+
   return (
     <html lang="en">
       <body
@@ -30,13 +35,7 @@ export default function RootLayout({
       >
         <ClerkProvider>
           <ClerkLoading>
-            <div className="flex h-screen w-screen items-center justify-center bg-black/70 backdrop-blur-3xl  ">
-              <div className="flex items-center space-x-2">
-                <span className="h-6 w-6 animate-bounce rounded-full bg-indigo-500 [animation-delay:0ms]"></span>
-                <span className="h-6 w-6 animate-bounce rounded-full bg-indigo-500 [animation-delay:150ms]"></span>
-                <span className="h-6 w-6 animate-bounce rounded-full bg-indigo-500 [animation-delay:300ms]"></span>
-              </div>
-            </div>
+                <Loader/>
           </ClerkLoading>
           <ClerkLoaded>
             <>

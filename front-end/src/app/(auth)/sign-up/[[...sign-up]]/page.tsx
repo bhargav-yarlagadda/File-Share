@@ -3,7 +3,7 @@ import {  SignUp } from "@clerk/nextjs";
 export default function Page() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-gray-900 to-gray-900 p-6">
-      <div className="flex w-full max-w-5xl flex-col items-center gap-12 rounded-2xl bg-gray-850 p-10 shadow-2xl ring-1 ring-gray-700 md:flex-row">
+      <div className="flex w-full max-w-5xl mt-20 flex-col items-center gap-12 rounded-2xl bg-gray-850 p-10 shadow-2xl ring-1 ring-gray-700 md:flex-row">
         {/* Left Section - Hero Text */}
         <div className="flex flex-col items-center text-center md:w-1/2 md:items-start md:text-left">
           <h2 className="bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-4xl font-extrabold text-transparent">

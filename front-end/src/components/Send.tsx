@@ -1,24 +1,52 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { FaFileUpload, FaCode, FaClipboard, FaTrash } from "react-icons/fa";
 
 const Send = () => {
   const [code, setCode] = useState("");
   const [file, setFile] = useState<File | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const socketRef = useRef<WebSocket | null>(null);
 
   const generateCode = () => {
     const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     let newCode = "";
     for (let i = 0; i < 9; i++) {
       if (i > 0 && i % 3 === 0) newCode += "-";
-      newCode += characters.charAt(
-        Math.floor(Math.random() * characters.length)
-      );
+      newCode += characters.charAt(Math.floor(Math.random() * characters.length));
     }
     setCode(newCode);
+
+    if (socketRef.current) {
+      socketRef.current.close();
+    }
+
+    const ws = new WebSocket("ws://localhost:5000");
+
+    ws.onopen = () => {
+      console.log("Connected to WebSocket server");
+      ws.send(JSON.stringify({ type: "create-session", code: newCode }));
+    };
+
+    ws.onmessage = (event) => {
+      const message = JSON.parse(event.data);
+      console.log("Received:", message);
+    };
+
+    ws.onerror = (error) => console.error("WebSocket Error:", error);
+    ws.onclose = () => console.log("WebSocket Closed");
+
+    socketRef.current = ws;
   };
+
+  useEffect(() => {
+    return () => {
+      if (socketRef.current) {
+        socketRef.current.close();
+      }
+    };
+  }, []);
 
   const handleFileChange = () => {
     if (fileInputRef.current?.files?.[0]) {
@@ -39,8 +67,6 @@ const Send = () => {
 
   return (
     <div className="w-full min-h-screen flex flex-col items-center justify-center bg-gray-900 text-white relative overflow-hidden">
-      {/* Floating Particles */}
-
       <h1 className="text-5xl font-extrabold mb-6 z-10 drop-shadow-lg">
         Upload & Share
       </h1>
@@ -51,7 +77,7 @@ const Send = () => {
         onClick={handleUploadClick}
       >
         <span className="text-blue-100 text-2xl"><FaFileUpload /></span>
-        <span className="font-thin text-lg tracking-wide text-gray-800   truncate max-w-[200px]">
+        <span className="font-thin text-lg tracking-wide text-gray-800 truncate max-w-[200px]">
           {file ? file.name.substring(0, 30) + "..." : "Click to Upload File"}
         </span>
 
