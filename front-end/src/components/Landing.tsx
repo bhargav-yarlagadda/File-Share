@@ -23,10 +23,10 @@ export default function LandingPage() {
                 Live Share
                 <span className="absolute inset-0 bg-pink-400/20 blur-md -z-10"></span>
               </Link>
-              <button className="relative overflow-hidden border border-pink-500 text-pink-400 mb-4 px-2 md:px-6 py-3 rounded-lg transition-all duration-300 hover:bg-pink-500 hover:text-white hover:shadow-pink-500/50 text-sm md:text-base">
+              <Link href='/share' className="relative overflow-hidden border border-pink-500 text-pink-400 mb-4 px-2 md:px-6 py-3 rounded-lg transition-all duration-300 hover:bg-pink-500 hover:text-white hover:shadow-pink-500/50 text-sm md:text-base">
                 Share Via URL
                 <span className="absolute inset-0 bg-pink-400/10 blur-md -z-10"></span>
-              </button>
+              </Link>
             </div>
           </div>
 
