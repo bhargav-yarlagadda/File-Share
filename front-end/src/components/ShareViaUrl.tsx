@@ -6,6 +6,7 @@ import React, { useState } from "react";
 import bcrypt from "bcryptjs";
 import { saveFileMetaDataToDb } from "@/utils/fileHandlers";
 import Loader from "./Loader";
+import { getDocumentId } from "@/libs/database";
 
 const ShareViaUrl = () => {
   const [file, setFile] = useState<File | null>(null);
@@ -63,9 +64,9 @@ const ShareViaUrl = () => {
         isFileDownloaded: false,
         password: hashedPassword,
       });
-
+      const document = await getDocumentId(fileId)
       if (success) {
-        setFileUrl(`${window.location.origin}/${fileId}`);
+        setFileUrl(`${window.location.origin}/share/${document.documentId}`);
         setStatusMessage("File uploaded successfully!");
       } else {
         throw new Error("Failed to save file metadata.");

@@ -45,8 +45,8 @@ export async function POST(request: Request) {
       );
     }
     return NextResponse.json(
-      { success: true, data: response },
-      { status: 200 }
+      { success: true, data: response ,docId:response.$id},
+            { status: 200 }
     );
   } catch (error) {
     console.error("Error handling POST request:", error);

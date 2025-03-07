@@ -31,8 +31,8 @@ export const saveFileMetaDataToDb = async ({
       password,
     });
 
-    console.log("File saved successfully:", response.data);
-    return true; 
+    console.log("File saved successfully:", response);
+    return true 
   } catch (error: any) {
     console.error("Error saving file to DB:", error.response?.data || error.message);
     return false
@@ -40,3 +40,15 @@ export const saveFileMetaDataToDb = async ({
   }
 };
 
+export const getFileMetaDataFromDb=async (fileId:string)=>{
+  try{
+    const response = await axios.get(`http://localhost:3000/api/${fileId}`)
+    if(response.status!==200){
+    return {message:"The Document you are looking for does not exits or have been deleted.",status:false}
+    }
+    return {data:response.data,status:true}
+    
+  }catch(error){
+    return {message:"Error in Fetching Data.",status:false}
+  }
+}
