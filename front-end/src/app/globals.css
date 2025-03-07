@@ -16,6 +16,9 @@
     --foreground: #ededed;
   }
 }
+html{
+  scrollbar-width: none;
+}
 
 body {
   color: var(--foreground);

@@ -4,14 +4,18 @@ import Link from "next/link";
 import { useUser } from "@clerk/nextjs";
 import Image from "next/image";
 import { UserButton } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
 const Navbar = () => {
+  const router = useRouter()
   const { isSignedIn } = useUser();
 
   return (
     <div className="flex w-full px-8  items-center justify-center  overflow-x-hidden absolute top-5">
       <nav className=" w-[1280px] rounded-b-3xl rounded-t-xl md:rounded-full flex justify-between items-center px-4 md:px-10 py-4 md:py-2 bg-white/10 backdrop-blur-lg border border-purple-500/50 shadow-lg shadow-purple-800/20 z-10">
         {/* Left - Logo */}
-        <h1 className="text-xl md:text-2xl font-bold text-white tracking-wider">
+        <h1
+        onClick={()=>{router.push('/')}}
+        className="text-xl md:text-2xl cursor-pointer font-bold text-white tracking-wider">
           <span className="text-pink-500">File</span>Share
         </h1>
 
