@@ -94,7 +94,7 @@ const ShareViaUrl = () => {
             className="mt-2 w-full px-4 py-2 rounded-md bg-[#3e52ac] text-white border border-gray-600 focus:border-cyan-500 
               sm:text-sm sm:px-3 sm:py-1.5 md:text-base lg:text-lg"
             value={expiryDate}
-            onChange={(e) => setExpiryDate(e.target.value)}
+            onChange={(e) => setExpiryDate(e.target.value )}
           />
         </label>
 
@@ -136,14 +136,15 @@ const ShareViaUrl = () => {
             onClick={() => {
               navigator.clipboard.writeText(fileUrl);
               setCopied(true);
-              setTimeout(() => setCopied(false), 2000);
+
+              setTimeout(() => {setCopied(false);window.location.reload()}, 6000);
             }}
           >
             <p className="text-sm">Click to copy:</p>
             <p className="font-semibold text-cyan-400">{fileUrl}</p>
 
             {copied && (
-              <span className="absolute w-full text-center md:w-xs top-12 left-1/2 transform -translate-x-1/2 border-2 border-cyan-600 bg-sky-700 text-white text-xs px-2 py-1 rounded-md shadow-md">
+              <span className="absolute w-full text-center md:w-xs top-20 left-1/2 transform -translate-x-1/2 border-2 border-cyan-600 bg-sky-700 text-white text-xs px-2 py-1 rounded-md shadow-md">
                 Copied!
               </span>
             )}

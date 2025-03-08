@@ -2,9 +2,11 @@
 
 import React, { useState } from "react";
 import bcrypt from "bcryptjs";
-import { FileMetaData } from "@/types";
+import { FileMetaData, StorageUrlsType } from "@/types";
 import { AiOutlineFile, AiOutlineDownload } from "react-icons/ai";
 import Loader from "./Loader";
+import { getDocumentId } from "@/libs/database";
+import { deleteFileMetaDataFromDB } from "@/utils/fileHandlers";
 
 const DownloadFile = ({ fileData }: { fileData: {data:FileMetaData} }) => {
     const data = fileData.data
@@ -12,6 +14,8 @@ const DownloadFile = ({ fileData }: { fileData: {data:FileMetaData} }) => {
     const [enteredPassword, setEnteredPassword] = useState("");
     const [isVerified, setIsVerified] = useState(false);
     const [error, setError] = useState("");
+    const [storageUrls, setStorageUrls] = useState<StorageUrlsType | null>(null);
+
     const handlePasswordSubmit = async () => {
         if (!data.password) {
             setError("No password found for this file.");
@@ -29,10 +33,25 @@ const DownloadFile = ({ fileData }: { fileData: {data:FileMetaData} }) => {
 
     const handleDownload = async () => {
         try {
+
+
             // Fetch the file as a blob
             const response = await fetch(data.fileURL);
             const blob = await response.blob();
-    
+            const doc = await getDocumentId(data.fileID)
+            if (doc && data?.fileID&& doc.documentId) {
+                setStorageUrls({ fileId: data.fileID, docId: doc.documentId });
+              }
+            let resp;
+            if(storageUrls?.docId && storageUrls.fileId){
+                resp = await deleteFileMetaDataFromDB(storageUrls.fileId,storageUrls.docId)
+            }
+            if(resp?.status){
+                
+            }else{
+                setError("Cannot Get the document")
+                return
+            }
             // Create a blob URL
             const blobUrl = URL.createObjectURL(blob);
     
@@ -51,6 +70,8 @@ const DownloadFile = ({ fileData }: { fileData: {data:FileMetaData} }) => {
             // Cleanup
             document.body.removeChild(link);
             URL.revokeObjectURL(blobUrl);
+            
+ 
         } catch (error) {
             console.error("Error downloading file:", error);
             setError("Failed to initiate download. Please try again.");

@@ -1,3 +1,5 @@
+import { deleteFileMetadata, getDocumentId } from "@/libs/database";
+import { deleteFile } from "@/libs/storage";
 import axios from "axios";
 
 export const saveFileMetaDataToDb = async ({
@@ -42,6 +44,8 @@ export const saveFileMetaDataToDb = async ({
 
 export const getFileMetaDataFromDb=async (fileId:string)=>{
   try{
+    
+    
     const response = await axios.get(`http://localhost:3000/api/${fileId}`)
     if(response.status!==200){
     return {message:"The Document you are looking for does not exits or have been deleted.",status:false}
@@ -50,5 +54,15 @@ export const getFileMetaDataFromDb=async (fileId:string)=>{
     
   }catch(error){
     return {message:"Error in Fetching Data.",status:false}
+  }
+}
+
+export const deleteFileMetaDataFromDB = async (fileId:string,docId:string)=>{
+  try{
+    await deleteFileMetadata(docId)
+    await deleteFile(fileId)
+    return {status:true,message:"successfully deleted the documents "}
+  }catch(err){
+    return {status:false,message:"could not delete from the database"}
   }
 }

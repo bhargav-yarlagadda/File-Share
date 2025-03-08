@@ -7,6 +7,7 @@ import { getFileMetaDataFromDb } from "@/utils/fileHandlers";
 import Loader from "@/components/Loader";
 import DownloadFile from "./DownloadFile";
 import { ErrorMessage } from "./ShowErrorMessage";
+import DoesNotExist from "./DoesNotExists";
 
 const ShowDownload = () => {
   const { fileId } = useParams() as { fileId: string };
@@ -53,6 +54,8 @@ const ShowDownload = () => {
       {!isLoading && message && <ErrorMessage message={message} />}
 
       {!isLoading && data && <DownloadFile fileData={data} />}
+      {!isLoading && !data && <DoesNotExist />}
+      
     </div>
   );
 };

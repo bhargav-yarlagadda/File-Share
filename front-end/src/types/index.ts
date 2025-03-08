@@ -10,3 +10,7 @@ export interface FileMetaData {
     isFileDownloaded: boolean
   }
   
+export interface StorageUrlsType{
+  fileId:string,
+  docId:string
+}

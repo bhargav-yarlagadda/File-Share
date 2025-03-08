@@ -47,19 +47,16 @@ export const saveFileMetadata = async (
 
 export const getFileMetaData = async (fileId: string) => {
   try {
-    const data = await database.getDocument(DATABASE_ID,COLLECTION_ID,fileId)
-    console.log(data)
-    if(!data){
-    return {message:"document does not exits",status:false};
-  }
-  return {data:data,status:true};
+    const data = await database.getDocument(DATABASE_ID, COLLECTION_ID, fileId);
 
-
+    // ✅ If the file is valid, return its data
+    return { status: true, data };
   } catch (error) {
     console.error("Delete Metadata Error:", error);
-    return {message:"error in fetching document",status:false};
+    return { message: "Error in fetching document", status: false };
   }
 };
+
 export const deleteFileMetadata = async (documentId: string) => {
   try {
     await database.deleteDocument(DATABASE_ID, COLLECTION_ID, documentId);
@@ -92,8 +89,8 @@ export const getDocumentId = async (fileId: string) => {
       data: document,           // The full document data
       status: true
     };
-  } catch (error) {
-    console.error("Error fetching document by fileId:", error);
+  } catch (error:any) {
+    console.error("Error fetching document by fileId:", error?.message);
     return { message: "Error fetching document", status: false };
   }
 };
