@@ -10,6 +10,9 @@ FileShare is a secure, peer-to-peer (P2P) file-sharing website built with modern
 - **Receiver Tracking**: Senders can see a list of joined receivers.
 - **Manual Download**: Receivers can download files at their convenience.
 - **Responsive Design**: Works seamlessly on both desktop and mobile devices.
+- **Sharing Via URLs**: Share Files instantly using urls
+- **View Destructing Files**:Files are automatically removed from the DB and storage bucket after they are viewed / downloaded
+  
 
 ## Tech Stack
 
@@ -68,3 +71,8 @@ npm start
 ### Access the Application
 Open your browser to `http://localhost:3000 `  for the frontend.
 The backend runs on `http://localhost:5000` for WebSocket signaling.
+
+###TODOs
+- **CRON JOB** : set up cron job to delete files after the expiry time/
+
+
