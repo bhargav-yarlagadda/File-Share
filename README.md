@@ -1,4 +1,4 @@
-# FileShare - P2P File Sharing Website
+# FileShare - P2P File Sharing Website.
 
 FileShare is a secure, peer-to-peer (P2P) file-sharing website built with modern web technologies. It allows users to upload and share files directly between devices using WebRTC, with a simple and intuitive interface. Authentication is handled via Clerk, ensuring secure user management.
 
